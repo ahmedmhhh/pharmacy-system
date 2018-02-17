@@ -11,7 +11,7 @@ public class PharmacySystem {
     public static void main(String[] args) {
         try {
            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb?useSSL=false"
-                    ,"root","37492237");
+                    ,"root","yourPass");
             System.out.println("connected !");
         } catch (SQLException ex) {
               System.out.println("SQLException: " + ex.getMessage());
