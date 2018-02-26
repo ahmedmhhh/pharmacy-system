@@ -25,14 +25,17 @@ public class ConnectDB {
               System.out.println("VendorError: " + ex.getErrorCode());
         }
    }
-   public void insertDB(){
+   public String insertDB(String user,String pass,String email,String mobile,char gender){
+       String doneInsert="Welcome !";
        Connected();
        try {
              Statement st = conn.createStatement(); 
-             st.executeUpdate("INSERT INTO `pharmacydb`.`users`VALUES(1,'123','a@hotmail.com','0109111111','M')");
+             st.executeUpdate("INSERT INTO `pharmacydb`.`users` VALUES ("
+                     + "+'" +user+"','"+pass+"','"+email+"','"+mobile+"','"+gender+"')");
+             System.out.println("inserted");
        } catch (Exception e) {
-           
+            System.err.println(e.getMessage()); 
        }
-       
+       return doneInsert;
    } 
 }

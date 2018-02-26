@@ -122,10 +122,15 @@ public class SignUp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ConnectDB conn=new ConnectDB();       
+        ConnectDB conn=new ConnectDB();     
+        String gender;
         try {
-            conn.insertDB();
+            gender= jComboBox1.getSelectedItem().toString().replaceAll("Male", "M");
+            gender= jComboBox1.getSelectedItem().toString().replaceAll("Female", "F");
+       
+            conn.insertDB(jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),jTextField4.getText(),gender.charAt(0));
         } catch (Exception e) {
+            System.err.println(e.getMessage()); 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
