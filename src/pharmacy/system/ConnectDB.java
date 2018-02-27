@@ -3,6 +3,7 @@ package pharmacy.system;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -38,4 +39,30 @@ public class ConnectDB {
        }
        return doneInsert;
    } 
+   public void UserMyQuery(String Query){
+       Connected();
+        try {
+             Statement st = conn.createStatement(); 
+             st.executeQuery(Query);
+             System.out.println("Query is "+Query);
+             
+       } catch (Exception e) {
+            System.err.println(e.getMessage()); 
+       }
+   }
+    public int UserMyQuery(String Condition,String tablename,String column){
+       Connected();
+       int count=-1;
+        try {
+             Statement st = conn.createStatement();   
+             String showStatment="select "+Condition+" from "+tablename+" where "+column;
+             ResultSet Query=st.executeQuery(showStatment);
+             System.out.println("Query is "+showStatment);
+             Query.next();
+             count = Query.getInt(1);
+       } catch (Exception e) {
+            System.err.println(e.getMessage()); 
+       }
+        return count;
+   }
 }

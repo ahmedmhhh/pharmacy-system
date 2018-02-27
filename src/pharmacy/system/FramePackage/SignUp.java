@@ -6,7 +6,9 @@
 package pharmacy.system.FramePackage;
 
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import pharmacy.system.ConnectDB;
+import pharmacy.system.ValidationInput;
 
 /**
  *
@@ -20,7 +22,7 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         initComponents();
     }
-
+public static boolean ValidCheckSignUp=false;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +43,9 @@ public class SignUp extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +59,24 @@ public class SignUp extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField2FocusLost(evt);
+            }
+        });
+
+        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField3FocusLost(evt);
+            }
+        });
+
+        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField4FocusLost(evt);
+            }
+        });
+
         jLabel5.setText("gender");
 
         jButton1.setText("Sign Up");
@@ -62,6 +85,17 @@ public class SignUp extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel6.setText("jLabel6");
+
+        jLabel7.setText("jLabel7");
+        jLabel7.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jLabel7FocusLost(evt);
+            }
+        });
+
+        jLabel8.setText("jLabel8");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,10 +115,15 @@ public class SignUp extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField4)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField2)
-                            .addComponent(jTextField3))
-                        .addGap(26, 26, 26))
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,20 +139,23 @@ public class SignUp extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -128,11 +170,69 @@ public class SignUp extends javax.swing.JFrame {
             gender= jComboBox1.getSelectedItem().toString().replaceAll("Male", "M");
             gender= jComboBox1.getSelectedItem().toString().replaceAll("Female", "F");
        
-            conn.insertDB(jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),jTextField4.getText(),gender.charAt(0));
+            if(ValidCheckSignUp){
+            conn.insertDB(jTextField1.getText(),jTextField2.getText(),
+                    jTextField3.getText(),jTextField4.getText(),gender.charAt(0));
+            JOptionPane.showMessageDialog(this, "Welcome "+jTextField1.getText()+" !");
+            }
+            else 
+            JOptionPane.showMessageDialog(this, "check you data !");
+            
         } catch (Exception e) {
             System.err.println(e.getMessage()); 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+        ValidationInput input=new ValidationInput();
+        boolean  testE= input.EmailValidation(jTextField3.getText());
+        if(testE)
+        {
+            jLabel6.setText("true");
+            ValidCheckSignUp=true;
+            ConnectDB connectDB=new ConnectDB();
+            int matchedEmail= connectDB.UserMyQuery("count(*)", "users", "email='"+jTextField3.getText()+"'");
+            System.out.println(matchedEmail);
+            if(matchedEmail>0){
+            JOptionPane.showMessageDialog(this, 
+                    "change email because this email is used");
+            }
+        }
+        else {
+            jLabel6.setText("false");
+            ValidCheckSignUp=false;
+        }
+    }//GEN-LAST:event_jTextField3FocusLost
+
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+        ValidationInput input=new ValidationInput();
+        boolean testP= input.PhoneValidation(jTextField4.getText());
+        if(testP){
+            jLabel7.setText("true");
+            ValidCheckSignUp=true;
+        }
+        else {
+            jLabel7.setText("false");
+            ValidCheckSignUp=false;
+        }
+    }//GEN-LAST:event_jTextField4FocusLost
+
+    private void jLabel7FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel7FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel7FocusLost
+
+    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+        ValidationInput input=new ValidationInput();
+        boolean testPass= input.PassValidation(jTextField2.getText());
+        if(testPass){
+            jLabel8.setText("true");
+            ValidCheckSignUp=true;
+        }
+        else {
+            jLabel8.setText("false");
+            ValidCheckSignUp=false;
+        }
+    }//GEN-LAST:event_jTextField2FocusLost
 
     /**
      * @param args the command line arguments
@@ -177,6 +277,9 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
