@@ -39,16 +39,19 @@ public class ConnectDB {
        }
        return doneInsert;
    } 
-   public void UserMyQuery(String Query){
+   public ResultSet UserMyQuery(String Query){
        Connected();
+       ResultSet rs=null;
         try {
              Statement st = conn.createStatement(); 
-             st.executeQuery(Query);
+             rs=st.executeQuery(Query);
              System.out.println("Query is "+Query);
              
        } catch (Exception e) {
             System.err.println(e.getMessage()); 
        }
+        System.out.println(rs.toString());
+        return rs;
    }
     public int UserMyQuery(String Condition,String tablename,String column){
        Connected();
