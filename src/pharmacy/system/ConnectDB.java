@@ -15,7 +15,7 @@ public class ConnectDB {
    static Connection conn=null;  
    static String url="jdbc:mysql://localhost:3306/pharmacydb?useSSL=false";
    static String username="root";
-   static String password="37492237";
+   static String password="Enter Your Pass";
    public void Connected(){
    try {
            conn = DriverManager.getConnection(url,username,password);
