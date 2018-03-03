@@ -73,7 +73,6 @@ public class Offers extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setColumnSelectionAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -116,6 +115,11 @@ public class Offers extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 0, 51));
         jButton3.setText("Delete");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -237,7 +241,7 @@ public class Offers extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ConnectDB connectDB = new ConnectDB();
         try {
-             connectDB.UpdateProduct("update products set "
+             connectDB.Update_DeleteProduct("update products set "
                 + "Product_name='"+jTextField1.getText()+"',"
                         + "Price="+jTextField2.getText()+","
                                 +"Expiration_date='"+jTextField3.getText()+"',"
@@ -251,6 +255,18 @@ public class Offers extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         ConnectDB connectDB = new ConnectDB();
+        try {
+        connectDB.Update_DeleteProduct("delete from products where Product_ID="+jLabel6.getText());
+        JOptionPane.showMessageDialog(this,"product delete !");
+         showDataTable();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+       
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public void showDataTable(){
      try {
