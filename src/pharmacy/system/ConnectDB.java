@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -39,6 +41,21 @@ public class ConnectDB {
        }
        return doneInsert;
    } 
+   public boolean insertDB(String ProName,float Price,String Date,int Quantity){
+       Connected();
+       String ahmed="ahmed@asd.com";
+       try {
+             Statement st = conn.createStatement(); 
+             st.executeUpdate("INSERT INTO `pharmacydb`.`products` "
+                     + "(products.Product_name,products.Price,products.Expiration_date,products.Quantity,products.User_email)"
+                     + "VALUES ("+"'"+ProName+"'"+","+Price+",'"+Date+"',"+Quantity+",'"+ahmed+"')");
+            return true;
+             
+       } catch (SQLException e) {
+            System.err.println(e.getMessage()); 
+            return false;
+       }
+   }
    public ResultSet UserMyQuery(String Query){
        Connected();
        ResultSet rs=null;
