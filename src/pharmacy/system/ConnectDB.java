@@ -86,6 +86,7 @@ public class ConnectDB extends InsertUser{
    }
     public void UpdateProduct(String Query){
         Connected();
+        
         try {
              Statement st = conn.createStatement(); 
              st.executeUpdate(Query);

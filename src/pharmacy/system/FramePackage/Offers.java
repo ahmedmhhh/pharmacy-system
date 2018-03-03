@@ -245,6 +245,7 @@ public class Offers extends javax.swing.JFrame {
                                                 + "where Product_ID="+jLabel6.getText());
         JOptionPane.showMessageDialog(this,"product update !");
          showDataTable();
+         
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
