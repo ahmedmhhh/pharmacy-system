@@ -5,11 +5,11 @@ import java.beans.Statement;
 import java.sql.Connection;
 
 public class InsertUser {
-    public String username;
-    public String password;
-    public String email;
-    public String mobile;
-    public char sex;
+    private String username;
+    private String password;
+    static String email;
+    private String mobile;
+    private char sex;
 
     public InsertUser(String username, String password, String email, String mobile, char sex) {
         this.username = username;
@@ -18,7 +18,16 @@ public class InsertUser {
         this.mobile = mobile;
         this.sex = sex;
     }
+    public InsertUser(String username, String password, String email){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    } 
 
+    public InsertUser(){
+     
+    }
+    
     public String getUsername() {
         return username;
     }

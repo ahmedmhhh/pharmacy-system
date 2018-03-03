@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 
 
-public class ConnectDB {
+public class ConnectDB extends InsertUser{
    static Connection conn=null;  
    static String url="jdbc:mysql://localhost:3306/pharmacydb?useSSL=false";
    static String username="root";
@@ -43,12 +43,11 @@ public class ConnectDB {
    } 
    public boolean insertDB(String ProName,float Price,String Date,int Quantity){
        Connected();
-       String ahmed="ahmed@asd.com";
        try {
              Statement st = conn.createStatement(); 
              st.executeUpdate("INSERT INTO `pharmacydb`.`products` "
                      + "(products.Product_name,products.Price,products.Expiration_date,products.Quantity,products.User_email)"
-                     + "VALUES ("+"'"+ProName+"'"+","+Price+",'"+Date+"',"+Quantity+",'"+ahmed+"')");
+                     + "VALUES ("+"'"+ProName+"'"+","+Price+",'"+Date+"',"+Quantity+",'"+InsertUser.email+"')");
             return true;
              
        } catch (SQLException e) {
@@ -85,4 +84,14 @@ public class ConnectDB {
        }
         return count;
    }
+    public void UpdateProduct(String Query){
+        Connected();
+        try {
+             Statement st = conn.createStatement(); 
+             st.executeUpdate(Query);
+ 
+       } catch (Exception e) {
+            System.err.println(e.getMessage()); 
+       }
+    }
 }
