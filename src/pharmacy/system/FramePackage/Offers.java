@@ -285,7 +285,7 @@ public class Offers extends javax.swing.JFrame {
         try {
         connectDB.Update_DeleteProduct("update products set Quantity=Quantity-1 "
                 + "where Product_ID="+jLabel6.getText());
-        JOptionPane.showMessageDialog(this,"product delete !");
+        JOptionPane.showMessageDialog(this,"product sell !");
          showDataTable();
         } catch (Exception e) {
             System.out.println(e.getMessage());
