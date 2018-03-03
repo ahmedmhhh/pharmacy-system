@@ -15,7 +15,7 @@ public class ConnectDB extends InsertUser{
    static Connection conn=null;  
    static String url="jdbc:mysql://localhost:3306/pharmacydb?useSSL=false";
    static String username="root";
-   static String password="Enter Your Pass";
+   static String password="37492237";
    public void Connected(){
    try {
            conn = DriverManager.getConnection(url,username,password);
@@ -84,9 +84,8 @@ public class ConnectDB extends InsertUser{
        }
         return count;
    }
-    public void UpdateProduct(String Query){
+    public void Update_DeleteProduct(String Query){
         Connected();
-        
         try {
              Statement st = conn.createStatement(); 
              st.executeUpdate(Query);
